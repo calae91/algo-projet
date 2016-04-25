@@ -1,0 +1,3 @@
+https://openclassrooms.com/courses/creez-votre-application-web-avec-java-ee/introduction-a-mysql-et-jdbc
+
+http://forum.hardware.fr/hfr/Programmation/Java/toujours-savoir-classpath-sujet_41088_1.htm
