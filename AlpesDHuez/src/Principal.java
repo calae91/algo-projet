@@ -20,7 +20,7 @@ private static String motDePasse = "";
 			connexion = DriverManager.getConnection(url,utilisateur,motDePasse);
 			System.out.println("Base de donnée connectée.");
 			
-			plusCourtChemin c = new plusCourtChemin();
+			Algo c = new Algo();
 			c.algo(connexion);
 		}
 		catch(ClassNotFoundException e){
@@ -35,7 +35,6 @@ private static String motDePasse = "";
 					connexion.close();
 			
 		}
-
 	}
 
 }
