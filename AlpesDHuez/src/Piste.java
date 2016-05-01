@@ -3,10 +3,10 @@ public class Piste {
 	private int id;
 	private String nom;
 	private int duree;
-	private int depart;
-	private int arrivee;
+	private String depart;
+	private String arrivee;
 
-	public Piste(int id,String nom,int duree, int depart, int arrivee){
+	public Piste(int id,String nom,int duree, String depart, String arrivee){
 		this.id=id;
 		this.nom=nom;
 		this.duree=duree;
@@ -22,11 +22,11 @@ public class Piste {
 		return this.nom;
 	}
 	
-	public int getStart(){
+	public String getStart(){
 		return this.depart;
 	}
 	
-	public int getFinish() {
+	public String getFinish() {
 		return arrivee;
 	}
 	

@@ -2,19 +2,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sommet {
-	private int id;
-	private	int duree;
-	private int idaccess;//id de la piste d'accès (FINISH)
-	private int sommetP;
 	
-	public Sommet(int id,int duree,int idaccessn,int sommetP){
+	private String id="";
+	private	int duree=0;
+	private int idaccess=0; //id de la piste d'accès (FINISH)
+	
+	
+	public Sommet(String id,int duree,int idaccessn){
 		this.id=id;
 		this.duree=duree;
 		this.idaccess=idaccess;
-		this.sommetP=sommetP;
 	}
 	
-	public int getID(){
+	public String getID(){
 		return this.id;
 	}
 	
@@ -22,23 +22,15 @@ public class Sommet {
 		return this.duree;
 	}
 	
-	public int getIDaccess(){
-		return this.idaccess;
+	public String modID(String id){
+		return this.id = id;
 	}
 	
-	public int getSommetP(){
-		return this.sommetP;
+	public int modDuree(int duree){
+		return this.duree=duree;
 	}
 	
-	public void modIDaccess(int a){
-		this.idaccess = a;
-	}
-	
-	public void modDuree(int a){
-		this.duree = a;
-	}
-	
-	public void modSpere(int a){
-		this.sommetP=a;
+	public int modIDaccess(int idaccess){
+		return this.idaccess = idaccess;
 	}
 }

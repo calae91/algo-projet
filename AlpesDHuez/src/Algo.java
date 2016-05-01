@@ -22,41 +22,54 @@ public class Algo {
 			Scanner sc = new Scanner(System.in);
 			System.out.println("le depart");
 			String str = sc.nextLine();
-			int depart = Integer.parseInt(str);
+			String depart =str;
 			System.out.println("arrivee");
 			str = sc.nextLine();
-			int arrivee=Integer.parseInt(str);
+			String arrivee = str;
+			
 			List<Piste> pistes = new ArrayList<Piste>(); //Contient les données des pistes
 			//List<String> aFaire = new ArrayList<String>(); //convertion de string en int Integer.parseInt(String)
-			List<Sommet> aTraiter = new ArrayList<Sommet>();
-			List<Sommet> marquer = new ArrayList<Sommet>();
-			List<String> chemin=new ArrayList<String>();
+			List<String> aTraiter = new ArrayList<String>();//Sommet à traiter
+			List<String> S = new ArrayList<String>();
 			
 			while(resultat.next()){
-				pistes.add(new Piste(resultat.getInt("ID"),resultat.getString("NAME"),resultat.getInt("TIME"),resultat.getInt("START"),resultat.getInt("FINISH")));
+				pistes.add(new Piste(resultat.getInt("ID"),resultat.getString("NAME"),resultat.getInt("TIME"),resultat.getString("START"),resultat.getString("FINISH")));
 			}
-			System.out.println(pistes.size());
+			resultat = statement.executeQuery("SELECT ID FROM sommet;");
+			while(resultat.next()){
+				S.add(resultat.getString("ID"));
+			}
 			
-			marquer.add(new Sommet(depart,0,0,0));
-			aTraiter.add(new Sommet(depart,0,0,0));
+			Sommet sommet[]=new Sommet[S.size()];
+			int i=0;
+			while(i<S.size()){
+				System.out.println("ici");
+				sommet[i].modID(S.get(i));
+				System.out.println("ici");
+				sommet[i].modDuree(-1);
+				sommet[i].modIDaccess(0);
+				i++;
+			}
 			
-			rechercheChemin(aTraiter,marquer,pistes);
+			System.out.println("ici");
+			aTraiter.add(depart);
 			
-			plusCourtChemin(depart,arrivee,marquer,pistes,chemin);
-			System.out.println("Nombre de pistes "+ chemin.size());
-			System.out.println(chemin.get(0));
+			int a=0;
+			while(a<S.size()){
+				if(depart == sommet[a].getID())
+					break;
+				a++;
+			}
+			//public void rechercherChemin(Sommet[] sommet,List<String> aTraiter,List<Piste> piste,String depart,int Pdepart,String arrivee,List<String> S)
+			rechercherChemin(sommet,aTraiter,pistes,depart,a,arrivee,S);
 			
-			/*int a=chemin.size()-1;
-			String nom;
-			while(a>=0){
-				int z=0;
-				while(nom=pistes.get(z).getID() != Integer.parseInt(chemin.get(a)))
-					z++;
-					
-				System.out.println(nom);
-				a--;
-			}*/
-			
+			a=0;
+			while(a<S.size()){
+				if(arrivee == sommet[a].getID())
+					break;
+				a++;
+			}
+			System.out.println("La duree est : "+sommet[a].getDuree());
 		}
 		catch(Exception e){
 			System.out.println(e);
@@ -69,67 +82,53 @@ public class Algo {
 			}
 	}
 	
-	public void rechercheChemin(List<Sommet> aTraiter,List<Sommet> marquer, List<Piste> pistes){
-		if(aTraiter.size()==0) return;
-		int n=marquer.size()-1;
-		int i=0;
+	public void rechercherChemin(Sommet sommet[],List<String> aTraiter,List<Piste> piste,String depart,int Pdepart,String arrivee,List<String> S){
+		int a=0;
+		if(aTraiter.size() ==0)return;
 		
-		while(i<pistes.size()){
-			if(marquer.get(n).getID() == pistes.get(i).getStart()) {
-				int a=0;
-			
-				while(a<marquer.size()){
-					if(marquer.get(a).getID() == pistes.get(i).getFinish())
+		while(a<piste.size()){
+			if(depart == piste.get(a).getStart()){
+				int z =0;
+				while(z<aTraiter.size()){
+					if(aTraiter.get(z) == piste.get(a).getFinish())
 						break;
-					a++;
+					z++;
 				}
-				if(a==marquer.size()){
-					a=0;
-					while(a<aTraiter.size()){
-						if(aTraiter.get(a).getID() == pistes.get(i).getFinish()){
-							if(aTraiter.get(a).getDuree() > (pistes.get(i).getTime() + marquer.get(n).getDuree())){
-								aTraiter.get(a).modIDaccess(pistes.get(i).getID());
-								aTraiter.get(a).modDuree(pistes.get(i).getTime() + marquer.get(n).getDuree());
-								aTraiter.get(a).modSpere(marquer.get(n).getID());
-							}
-							break;
+				if(z==aTraiter.size())
+					aTraiter.add(piste.get(a).getFinish());
+				
+				int i=0;
+				while(i<S.size()){
+					if(piste.get(a).getFinish() == sommet[i].getID()){
+						if(sommet[i].getDuree() > piste.get(a).getTime()+sommet[Pdepart].getDuree()){
+							sommet[i].modDuree(piste.get(a).getTime() + sommet[Pdepart].getDuree());
+							sommet[i].modIDaccess(piste.get(a).getID());
 						}
-						a++;
+						break;
 					}
-					if(a==aTraiter.size())
-						aTraiter.add(new Sommet(pistes.get(i).getFinish(),pistes.get(i).getTime() + marquer.get(n).getDuree(),pistes.get(i).getID(),marquer.get(n).getID()));
+					i++;
 				}
 			}
-			i++;
+			a++;
 		}
-		//On cherche la plus courte duree
-		i=1;
-		int a=0;
-		
-		while(i<aTraiter.size()){
-			if(aTraiter.get(a).getDuree() > aTraiter.get(i).getDuree())
-				a=i;
-			i++;
+		aTraiter.remove(Pdepart);
+		if(aTraiter.size()==0)return;
+		a=0;
+		int min=0;
+		while(a<S.size()){
+			if(aTraiter.get(0) == sommet[a].getID()){
+				min=sommet[a].getDuree();
+				break;
+			}
+			a++;
 		}
-		marquer.add(aTraiter.get(a));
-		aTraiter.remove(a);
-		rechercheChemin(aTraiter,marquer,pistes);
-	}
-	
-	public void plusCourtChemin(int depart,int arrivee,List<Sommet> marquer, List<Piste> pistes,List<String> chemin){
-		if(depart==arrivee) return;
-		int i=0;
-		while(i<marquer.size()){
-			if(arrivee == marquer.get(i).getID())
-					break;
-			i++;
+		a=1;
+		while(a<S.size()){
+			if(sommet[a].getDuree() < min)
+				min = sommet[a].getDuree();
+			a++;
 		}
-		if(i==marquer.size()){
-			System.out.println("Impossible d'aller à la destination.");
-			return;
-		}
-		chemin.add(Integer.toString(marquer.get(i).getIDaccess()));
-		System.out.println("ici"+marquer.get(i).getIDaccess());
-		plusCourtChemin(depart,marquer.get(i).getSommetP(),marquer,pistes,chemin);
+		//public void rechercherChemin(Sommet[] sommet,List<String> aTraiter,List<Piste> piste,String depart,int Pdepart,String arrivee,List<String> S)
+		rechercherChemin(sommet,aTraiter,piste,sommet[a].getID(),a,arrivee,S);
 	}
 }
