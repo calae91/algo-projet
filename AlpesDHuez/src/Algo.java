@@ -17,16 +17,23 @@ public class Algo {
 			/*executeQuery() ==> lecture de donnée via une requète de type SELECT
 			 *executeUpdate()==> ecriture/suppression  ... de type INSERT/UPDATE/DELETE*/
 			//resultat effectue un requête sur la table pistes et demande les noms	 
-			resultat = statement.executeQuery( "SELECT ID, NAME, TIME, START, FINISH FROM pistes;" );
+			resultat = statement.executeQuery( "SELECT ID,NAME FROM sommet;" );
+			List<Nom> nom = new ArrayList<Nom>();
+			
+			while(resultat.next()){
+				nom.add(new Nom(resultat.getString("NAME"),resultat.getString("ID")));
+			}
 			
 			Scanner sc = new Scanner(System.in);
-			System.out.println("le depart");
+			affichage(nom);
+			System.out.println("Où êtes vous ?");
 			String str = sc.nextLine();
 			String depart =str;
-			System.out.println("arrivee");
+			System.out.println("Où voulez-vous aller ?");
 			str = sc.nextLine();
 			String arrivee = str;
 			
+			resultat = statement.executeQuery( "SELECT ID, NAME, TIME, START, FINISH FROM pistes;" );
 			List<Piste> pistes = new ArrayList<Piste>(); //Contient les données des pistes
 			//List<String> aFaire = new ArrayList<String>(); //convertion de string en int Integer.parseInt(String)
 			List<String> aTraiter = new ArrayList<String>();//Sommet à traiter
@@ -39,15 +46,10 @@ public class Algo {
 			while(resultat.next()){
 				S.add(resultat.getString("ID"));
 			}
-			
-			Sommet sommet[]=new Sommet[S.size()];
+			/*Sommet sommet[]=new Sommet[S.size()];
 			int i=0;
 			while(i<S.size()){
-				System.out.println("ici");
-				sommet[i].modID(S.get(i));
-				System.out.println("ici");
-				sommet[i].modDuree(-1);
-				sommet[i].modIDaccess(0);
+				sommet[i]=new Sommet(S.get(i),-1,0);
 				i++;
 			}
 			
@@ -69,7 +71,7 @@ public class Algo {
 					break;
 				a++;
 			}
-			System.out.println("La duree est : "+sommet[a].getDuree());
+			System.out.println("La duree est : "+sommet[a].getDuree());*/
 		}
 		catch(Exception e){
 			System.out.println(e);
@@ -80,6 +82,14 @@ public class Algo {
 				if(statement!=null)
 					statement.close();
 			}
+	}
+	
+	public void affichage(List<Nom> nom){
+		int n=0;
+		while(n<nom.size()){
+			System.out.println("Tapez " + nom.get(n).getID() + " pour "+ nom.get(n).getNom());
+			n++;
+		}
 	}
 	
 	public void rechercherChemin(Sommet sommet[],List<String> aTraiter,List<Piste> piste,String depart,int Pdepart,String arrivee,List<String> S){

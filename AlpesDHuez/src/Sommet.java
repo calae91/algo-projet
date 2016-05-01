@@ -3,12 +3,12 @@ import java.util.List;
 
 public class Sommet {
 	
-	private String id="";
+	private String id;
 	private	int duree=0;
 	private int idaccess=0; //id de la piste d'accès (FINISH)
 	
 	
-	public Sommet(String id,int duree,int idaccessn){
+	public Sommet(String id,int duree,int idaccess){
 		this.id=id;
 		this.duree=duree;
 		this.idaccess=idaccess;
@@ -22,15 +22,15 @@ public class Sommet {
 		return this.duree;
 	}
 	
-	public String modID(String id){
-		return this.id = id;
+	public void modID(String id){
+		 this.id = id;
 	}
 	
-	public int modDuree(int duree){
-		return this.duree=duree;
+	public void modDuree(int duree){
+		this.duree=duree;
 	}
 	
-	public int modIDaccess(int idaccess){
-		return this.idaccess = idaccess;
+	public void modIDaccess(int idaccess){
+		this.idaccess = idaccess;
 	}
 }
