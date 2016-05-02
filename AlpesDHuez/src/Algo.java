@@ -32,6 +32,17 @@ public class Algo {
 			System.out.println("Où voulez-vous aller ?");
 			str = sc.nextLine();
 			String arrivee = str;
+			System.out.println("Quelle type de pistes voulez-vous emprunter ?");
+			System.out.println("4 pour toutes les pistes.");
+			System.out.println("3 pour toutes les pistes sauf la noire.");
+			System.out.println("2 pour les pistes vertes et bleues.");
+			System.out.println("1 pour seulement les pistes verte.");
+			str = sc.nextLine();
+			int couleur = Integer.parseInt(str);
+			if(couleur<1 || couleur >4){
+				System.out.println("Le type de pistes choisi n'est pas valide.");
+				return;
+			}
 			
 			resultat = statement.executeQuery( "SELECT ID, NAME, TIME, START, FINISH FROM pistes;" );
 			List<Piste> pistes = new ArrayList<Piste>(); //Contient les données des pistes
