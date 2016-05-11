@@ -1,0 +1,31 @@
+import java.util.ArrayList;
+import java.awt.Component;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
+public class principal {
+
+	public static void main(String[] args) {
+		ArrayList<Integer> nombre = new ArrayList<Integer>();
+		nombre.add(1);
+		nombre.add(2);
+		nombre.add(3);
+		nombre.add(4);
+		
+		JDialog.setDefaultLookAndFeelDecorated(true);
+		  //Conertie une liste en tableau
+	    Object[] selectionValues = nombre.toArray(); //Possibilité à afficher
+	    int initialSelection = nombre.get(0);; // valeur initiale
+	    Object selection = JOptionPane.showInputDialog(null, "Choix",
+	        "TEST", JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);
+	    System.out.println(selection);
+
+	}
+
+}
+
+/*Object selection = JOptionPane.showInputDialog(null, "Choix",
+	        "TEST", JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);*/
+/* ==> int selection = (int) JOptionPane.showInputDialog(null, "Choix",
+	        "TEST", JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);*/ //pour recuperer un int
