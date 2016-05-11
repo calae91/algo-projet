@@ -18,6 +18,7 @@ public class Algo {
 			/*executeQuery() ==> lecture de donnée via une requète de type SELECT
 			 *executeUpdate()==> ecriture/suppression  ... de type INSERT/UPDATE/DELETE*/
 			//resultat effectue un requête sur la table pistes et demande les noms	 
+<<<<<<< HEAD
 			int level = -1;
 			level = getLevel(level);
 			//table de hachage avec clé id de la piste
@@ -45,6 +46,53 @@ public class Algo {
 			arrivee = 128;
 			System.out.println("try to remember :" + SommetId.get(37).getSt().get(3).getNom());
 			// on cherhe a savoir si le chemin est possible
+=======
+			/*resultat = statement.executeQuery( "SELECT ID,NAME FROM sommet;" );
+			List<Nom> nom = new ArrayList<Nom>();
+			
+			while(resultat.next()){
+				nom.add(new Nom(resultat.getString("NAME"),resultat.getString("ID")));
+			}
+			
+			Scanner sc = new Scanner(System.in);
+			affichage(nom);
+			System.out.println("Où êtes vous ?");
+			String str = sc.nextLine();
+			String depart =str;
+			System.out.println("Où voulez-vous aller ?");
+			str = sc.nextLine();
+			String arrivee = str;
+			System.out.println("Quelle type de pistes voulez-vous emprunter ?");
+			System.out.println("4 pour toutes les pistes.");
+			System.out.println("3 pour toutes les pistes sauf la noire.");
+			System.out.println("2 pour les pistes vertes et bleues.");
+			System.out.println("1 pour seulement les pistes verte.");
+			str = sc.nextLine();
+			int couleur = Integer.parseInt(str);
+			if(couleur<1 || couleur >4){
+				System.out.println("Le type de pistes choisi n'est pas valide.");
+				return;
+			}
+			
+			resultat = statement.executeQuery( "SELECT ID, NAME, TIME, START, FINISH FROM pistes;" );
+			List<Piste> pistes = new ArrayList<Piste>(); //Contient les données des pistes
+			//List<String> aFaire = new ArrayList<String>(); //convertion de string en int Integer.parseInt(String)
+			List<String> aTraiter = new ArrayList<String>();//Sommet à traiter
+			List<String> S = new ArrayList<String>();
+			
+			while(resultat.next()){
+				pistes.add(new Piste(resultat.getInt("ID"),resultat.getString("NAME"),resultat.getInt("TIME"),resultat.getString("START"),resultat.getString("FINISH")));
+			}
+			resultat = statement.executeQuery("SELECT ID FROM sommet;");
+			while(resultat.next()){
+				S.add(resultat.getString("ID"));
+			}
+			/*Sommet sommet[]=new Sommet[S.size()];
+			int i=0;
+			while(i<S.size()){
+				sommet[i]=new Sommet(S.get(i),-1,0);
+				i++;
+			}/*
 			
 			while (verifydepart(depart, arrivee,level, SommetId) == 0){
 				depart = 1;
@@ -62,6 +110,7 @@ public class Algo {
 		System.out.println(SommetId.get(depart).getIDaccess());
 		pistesFinal = chercheCheminFinal(pistesFinal, depart, arrivee, pistes, SommetId);
 		afficherPiste(pistesFinal, SommetId, pistes);
+			System.out.println("La duree est : "+sommet[a].getDuree());*/
 		}
 		catch(Exception e){
 			System.out.println(e);
@@ -74,6 +123,7 @@ public class Algo {
 			}
 	}
 	
+<<<<<<< HEAD
 // fonction principale permettant la recherche du plus cours chemin
 	public HashMap<Integer, Sommet> rechercherChemin(int level,int current, HashMap<Integer, Piste> pistes, HashMap<Integer, Sommet> sommets, ArrayList<Integer> aTraiter){
 		// on s'arrete si on a plus rien a traiter
@@ -141,6 +191,18 @@ public class Algo {
 		}
 		return pistes;
 	}
+	//plan B
+	/*public void affichage(List<Nom> nom){
+		int n=0;
+		while(n<nom.size()){
+			System.out.println("Tapez " + nom.get(n).getID() + " pour "+ nom.get(n).getNom());
+			n++;
+		}
+	}
+	
+	public void rechercherChemin(Sommet sommet[],List<String> aTraiter,List<Piste> piste,String depart,int Pdepart,String arrivee,List<String> S){
+		int a=0;
+		if(aTraiter.size() ==0)return;*/
 		
 	public HashMap<Integer, Sommet> rempSommetId(int level, HashMap<Integer, Sommet> SommetId, Statement statement, ResultSet resultat, HashMap<Integer, Piste> pistes){
 		try {
