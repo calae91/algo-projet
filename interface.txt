@@ -4,26 +4,33 @@ import java.awt.Component;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
-public class principal {
+//il faut ajouter le code avant ta fonction qui demande le level(ici c la partie 1 qui le fait)
+//PARTIE 2 ==> choisi le point de depart puis l'arrivee (ATTENTION revoie le nom du sommet et pas l'id)
+	//voir pour rechercher l'id avec la requete
 
-	public static void main(String[] args) {
-		ArrayList<Integer> nombre = new ArrayList<Integer>();
-		nombre.add(1);
-		nombre.add(2);
-		nombre.add(3);
-		nombre.add(4);
-		
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		  //Conertie une liste en tableau
-	    Object[] selectionValues = nombre.toArray(); //Possibilité à afficher
-	    int initialSelection = nombre.get(0);; // valeur initiale
-	    Object selection = JOptionPane.showInputDialog(null, "Choix",
-	        "TEST", JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);
-	    System.out.println(selection);
-
-	}
-
-}
+//PARTIE 1
+String[] niveau = {"Débutant", "Moyen", "Expert de la glisse"};
+	//le rang stock le niveau de l'utilisateur (0,1 ou 2)
+			int rang = JOptionPane.showOptionDialog(null, 
+				      "Veuillez indiquer votre niveau.",
+				      "Alpes Huez",
+				      JOptionPane.YES_NO_CANCEL_OPTION,
+				      JOptionPane.DEFAULT_OPTION,
+				      null,
+				      niveau,niveau[0]);
+			
+//PARTIE 2
+			resultat = statement.executeQuery( "SELECT ID,NAME FROM sommet;" );
+			List<String> nom = new ArrayList<String>();
+			
+			while(resultat.next()){
+				nom.add(resultat.getString("NAME"));
+			}
+			Object[] n = nom.toArray();
+			String recup=  (String) JOptionPane.showInputDialog(null, "Où etes-vous ?","Alpes Huez", JOptionPane.DEFAULT_OPTION, null, n, n[0]);
+			//depart = recup.getID();
+			recup= (String) JOptionPane.showInputDialog(null, "Où voulez-vous aller ?","Alpes Huez", JOptionPane.DEFAULT_OPTION, null, n, n[0]);
+			//arrivee = recup.getID();
 
 /*Object selection = JOptionPane.showInputDialog(null, "Choix",
 	        "TEST", JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);*/
