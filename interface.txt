@@ -4,9 +4,10 @@ import java.awt.Component;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
-//il faut ajouter le code avant ta fonction qui demande le level(ici c la partie 1 qui le fait)
+//il faut ajouter le code avant ta fonction qui demande le level(ici c la partie 1 qui le fait) PARTIE 1 + PARTIE 2
 //PARTIE 2 ==> choisi le point de depart puis l'arrivee (ATTENTION revoie le nom du sommet et pas l'id)
 	//voir pour rechercher l'id avec la requete
+//la PARTIE 3 se met à la fin si tu arrive à l'utilisé pour afficher l'itinéraire dans une fenetre
 
 //PARTIE 1
 String[] niveau = {"Débutant", "Moyen", "Expert de la glisse"};
@@ -31,6 +32,10 @@ String[] niveau = {"Débutant", "Moyen", "Expert de la glisse"};
 			//depart = recup.getID();
 			recup= (String) JOptionPane.showInputDialog(null, "Où voulez-vous aller ?","Alpes Huez", JOptionPane.DEFAULT_OPTION, null, n, n[0]);
 			//arrivee = recup.getID();
+			
+//PARTIE 3
+	//ce code doit être modifier si tu veux afficher l'itinneraire dans une fenetre ==> modifier "dans la fenetre" avec ce //qu'il faut ;)
+	JOptionPane.showMessageDialog(null, "dans la fenetre", "Alpes Huez", JOptionPane.DEFAULT_OPTION);
 
 /*Object selection = JOptionPane.showInputDialog(null, "Choix",
 	        "TEST", JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);*/
